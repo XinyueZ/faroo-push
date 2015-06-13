@@ -2,6 +2,11 @@
 #####A push-service for Faroo.com. Based on [GCM's topic-messaging](https://developers.google.com/cloud-messaging/topic-messaging).
 #####Each push-entry is the first item in feeds.
 #####Each topic has [3 language](http://www.faroo.com/hp/api/api.html#description) that Faroo.com supports.
+
+# About fork
+- Check out project.
+- Change application-id in app.yaml which is generated in Google-Dev-Console.
+- Change API-KEY in config.go which is generated in Google-Dev-Console.
  
 # Supported topics:
 ######The list will be grown in the furture and the client-apps must keep pace with updated list to subscribe new pushs.
