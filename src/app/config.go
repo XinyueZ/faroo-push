@@ -12,4 +12,6 @@ const(
   	API_METHOD = "POST"
   	API_RESTYPE = "application/json"
 	TOPICS = "/topics/"
+	
+	FAROO_API = "http://www.faroo.com/api?q=%s&start=1&length=1&l=%s&src=news&f=json"
 )  
