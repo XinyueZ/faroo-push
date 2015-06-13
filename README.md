@@ -5,8 +5,9 @@
 
 # About fork
 - Check out project.
-- Change application-id in app.yaml which is generated in Google-Dev-Console.
-- Change API-KEY in config.go which is generated in Google-Dev-Console.
+- Change application-id(dev, live) in app.yaml which is generated in Google-Dev-Console.
+- Change API_KEY(dev, live) in config.go which is generated in Google-Dev-Console.
+- Change FAROO_KEY(dev, live) in config.go which is generated in by [fraoo.com](http://www.faroo.com/hp/api/api.html#key).
  
 # Supported topics:
 ######The list will be grown in the furture and the client-apps must keep pace with updated list to subscribe new pushs.
