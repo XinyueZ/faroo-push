@@ -26,7 +26,7 @@
 | /topics/basketball-zh  | [篮球](http://www.faroo.com/api?q=篮球&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/IT-en  | [IT](http://www.faroo.com/api?q=Internet&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/IT-de  | [IT](http://www.faroo.com/api?q=Internet&start=1&length=10&l=de&src=news&f=json).  | German  |
-| /topics/IT-zh  | [IT](http://www.faroo.com/api?q=Internet&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
+| /topics/IT-zh  | [IT](http://www.faroo.com/api?q=网络&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/Android-en  | [Android](http://www.faroo.com/api?q=Android&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/Android-de  | [Android](http://www.faroo.com/api?q=Android&start=1&length=10&l=de&src=news&f=json).  | German  |
 | /topics/Android-zh  | [安卓](http://www.faroo.com/api?q=安卓&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
