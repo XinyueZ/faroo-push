@@ -26,19 +26,19 @@
 | /topics/basketball-zh  | [篮球](http://www.faroo.com/api?q=篮球&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/IT-en  | [IT](http://www.faroo.com/api?q=Internet&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/IT-de  | [IT](http://www.faroo.com/api?q=Internet&start=1&length=10&l=de&src=news&f=json).  | German  |
-| /topics/IT-zh  | [IT](http://www.faroo.com/api?q=Internet&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
+| /topics/IT-zh  | [IT](http://www.faroo.com/api?q=网络&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/Android-en  | [Android](http://www.faroo.com/api?q=Android&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/Android-de  | [Android](http://www.faroo.com/api?q=Android&start=1&length=10&l=de&src=news&f=json).  | German  |
-| /topics/Android-zh  | [安卓](http://www.faroo.com/api?q=Android&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
+| /topics/Android-zh  | [安卓](http://www.faroo.com/api?q=安卓&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/Google-en  | [Google](http://www.faroo.com/api?q=Google&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/Google-de  | [Google](http://www.faroo.com/api?q=Google&start=1&length=10&l=de&src=news&f=json).  | German  |
-| /topics/Google-zh  | [谷歌](http://www.faroo.com/api?q=Google&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
+| /topics/Google-zh  | [谷歌](http://www.faroo.com/api?q=谷歌&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/iPhone-en  | [iPhone](http://www.faroo.com/api?q=iPhone&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/iPhone-de  | [iPhone](http://www.faroo.com/api?q=iPhone&start=1&length=10&l=de&src=news&f=json).  | German  |
 | /topics/iPhone-zh  | [iPhone](http://www.faroo.com/api?q=iPhone&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/Apple-en  | [Apple](http://www.faroo.com/api?q=Apple&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/Apple-de  | [Apple](http://www.faroo.com/api?q=Apple&start=1&length=10&l=de&src=news&f=json).  | German  |
-| /topics/Apple-zh  | [苹果](http://www.faroo.com/api?q=Apple&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
+| /topics/Apple-zh  | [苹果公司](http://www.faroo.com/api?q=苹果公司&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
  
  
 #License
