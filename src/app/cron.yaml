@@ -1,0 +1,10 @@
+cron:
+- description: Push all English entries.
+  url: /pushEn
+  schedule: every 3 hours from 0:00 to 23:59
+- description: Push all German entries.
+  url: /pushDe
+  schedule: every 2 hours from 0:00 to 23:59
+- description: Push all Chinese entries.
+  url: /pushZh
+  schedule: every 4 hours from 0:00 to 23:59
