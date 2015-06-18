@@ -1,10 +1,10 @@
 cron:
 - description: Push all English entries.
   url: /pushEn
-  schedule: every 60 minutes from 0:00 to 23:59
+  schedule: every 120 minutes from 0:00 to 23:59
 - description: Push all German entries.
   url: /pushDe
-  schedule: every 70 minutes from 0:00 to 23:59
+  schedule: every 125 minutes from 0:00 to 23:59
 - description: Push all Chinese entries.
   url: /pushZh
-  schedule: every 80 minutes from 0:00 to 23:59
+  schedule: every 130 minutes from 0:00 to 23:59
