@@ -19,8 +19,7 @@ HOW TO:
 3. Add DB_APP_ID, the application-id to config.go.
 4. Add DB_API_KEY, the application-API-key to config.go
 5. Add DB_PATH, the absolute path of your database on internet, i.e https://api.bmob.cn/1/classes/ for [bmob](http://www.bmob.cn/).
-6. Add DB_PUSH_TOKEN_TAB, the table to store all push-tokens with a Google-Id(after G+ Login).
-7. Add DB_CUSTOMIZED_TOPIC_TAB, the table to store all customized topics which assoiciate with DB_PUSH_TOKEN_TAB.
+6. Add DB_PUSH_TOKEN_TAB, the table to store all push-tokens with a Google-Id(after G+ Login). 
 
 The scheme of push-token(DB_PUSH_TOKEN_TAB):
  ```java
