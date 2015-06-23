@@ -22,7 +22,7 @@ HOW TO:
 6. Add DB_PUSH_TOKEN_TAB, the table to store all push-tokens with a Google-Id(after G+ Login).
 7. Add DB_CUSTOMIZED_TOPIC_TAB, the table to store all customized topics which assoiciate with DB_PUSH_TOKEN_TAB.
 
-The scheme of push-token:
+The scheme of push-token(DB_PUSH_TOKEN_TAB):
  ```java
 	{
 		"createdAt": "2015-06-23 21:47:04",
