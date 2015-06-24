@@ -156,36 +156,45 @@ func doPush(r *http.Request, api string, topic Topic, ch chan string) {
 
 func doCus(r *http.Request, ch chan string) {
 	pushTokenList := getPushTokens(r)
-	var pushedContent string = "" 
+	var allPushedContent string = "" 
 	if pushTokenList.Results != nil && len(pushTokenList.Results) > 0 { 
+		var sz int = len(pushTokenList.Results)
+		out := make(chan string, sz)
 		for _, v := range pushTokenList.Results {
-			pRess := [CUSTOMIZED_TOTAL]*EntryList{}
-			pRess[0] = getEntryList(r, v.CustomizedTopic1, v.Language) 
-			pRess[1] = getEntryList(r, v.CustomizedTopic2, v.Language) 
-			pRess[2] = getEntryList(r, v.CustomizedTopic3, v.Language) 
-			
-			topicApi := v.PushToken
-			for _, pRes := range pRess {
-				if pRes != nil && pRes.Results != nil &&  len(pRes.Results) > 0 {
-					entry := pRes.Results[0]
-					
-					entry.Title = strings.Replace(entry.Title, "\"", "'", -1)
-					entry.Title = strings.Replace(entry.Title, "%", "％", -1)
-					entry.Kwic = strings.Replace(entry.Kwic, "\"", "'", -1)
-					entry.Kwic = strings.Replace(entry.Kwic, "%", "％", -1)
-					
-					resBytes, _ := json.Marshal(entry)
-					data := string(resBytes) 
-					pushed := push(r, topicApi, data, true)
-					pushedContent += pushed 
-				} else {
-					pushedContent += (fmt.Sprintf(`"failed in %s"`, topicApi))
+    		go func(pushToken PushToken) {
+				pRess := [CUSTOMIZED_TOTAL]*EntryList{}
+				pRess[0] = getEntryList(r, pushToken.CustomizedTopic1, pushToken.Language) 
+				pRess[1] = getEntryList(r, pushToken.CustomizedTopic2, pushToken.Language) 
+				pRess[2] = getEntryList(r, pushToken.CustomizedTopic3, pushToken.Language) 
+				
+				topicApi := pushToken.PushToken
+				var pushedContent string = "" 
+				for _, pRes := range pRess {
+					if pRes != nil && pRes.Results != nil &&  len(pRes.Results) > 0 {
+						entry := pRes.Results[0]
+						
+						entry.Title = strings.Replace(entry.Title, "\"", "'", -1)
+						entry.Title = strings.Replace(entry.Title, "%", "％", -1)
+						entry.Kwic = strings.Replace(entry.Kwic, "\"", "'", -1)
+						entry.Kwic = strings.Replace(entry.Kwic, "%", "％", -1)
+						
+						resBytes, _ := json.Marshal(entry)
+						data := string(resBytes) 
+						pushed := push(r, topicApi, data, true)
+						pushedContent += pushed 
+					} else {
+						pushedContent += (fmt.Sprintf(`"failed in %s"`, topicApi))
+					}
+					pushedContent += ","  
 				}
-				pushedContent += ","  
-			}
+				out <- pushedContent
+    		}(v)	
 		}
-	}
-	ch <- pushedContent
+		for i := 0; i < sz; i++ {
+			allPushedContent += <-out
+		}
+	} 
+	ch <- allPushedContent
 }
 
 //Get all push-tokens of clients inc. the customized topics user subscribed.
