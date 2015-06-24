@@ -41,6 +41,24 @@ The scheme of push-token(DB_PUSH_TOKEN_TAB):
 	}
  ```
  
+ Example of backen-db config:
+ ```go
+	//The backend-database key as backend-database.
+	DB_PATH="https://api.bmob.cn/1/classes/"
+	DB_PUSH_TOKEN_TAB = "PushToken" 
+	DB_HEADER_APP_ID = "X-Bmob-Application-Id"
+	DB_HEADER_API_KEY = "X-Bmob-REST-API-Key"
+	//Live
+	//DB_APP_ID="345w45tsfgsdfgsdfg"
+	//DB_API_KEY="asdfasdfq345q345"
+	//Dev
+	DB_APP_ID="2asdfart34t"
+	DB_API_KEY="asdfasd345345q345q345"
+	
+	//How many customized topics are supported.
+	CUSTOMIZED_TOTAL = 5
+ ```
+ 
 # Supported topics:
 ######The list will be grown in the furture and the client-apps must keep pace with updated list to subscribe new pushs.
 ######Topic is case-sensitive.
