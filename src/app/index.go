@@ -44,9 +44,11 @@ type EntryList struct {
 
 type PushToken struct {
 	CreatedAt string `json:"createdAt"`
-	CustomizedTopic1 string  `json:"mCustomizedTopic1"`
+	CustomizedTopic1 string `json:"mCustomizedTopic1"`
 	CustomizedTopic2 string `json:"mCustomizedTopic2"`
 	CustomizedTopic3 string `json:"mCustomizedTopic3"`
+	CustomizedTopic4 string `json:"mCustomizedTopic4"`
+	CustomizedTopic5 string `json:"mCustomizedTopic5"`
 	Language string  `json:"mLanguage"`
 	DeviceId string `json:"mDeviceId"`
 	GoogleId string `json:"mGoogleId"`
@@ -131,6 +133,7 @@ func pushHandle(w http.ResponseWriter, r *http.Request, topicList map[string]Top
 	fmt.Fprintf(w, output)
 }
 
+//Push topics.
 func doPush(r *http.Request, api string, topic Topic, ch chan string) {
 	var pushedContent string = ""   
 	pRes := getEntryList(r, topic.LocalName, topic.Language) 
@@ -154,8 +157,13 @@ func doPush(r *http.Request, api string, topic Topic, ch chan string) {
 	ch <- pushedContent
 }
 
+//Push customized things.
 func doCus(r *http.Request, ch chan string) {
 	pushTokenList := getPushTokens(r)
+	if pushTokenList == nil {
+		ch <- `"Error(nil) in getting push-token""`
+		return
+	}
 	var allPushedContent string = "" 
 	if pushTokenList.Results != nil && len(pushTokenList.Results) > 0 { 
 		var sz int = len(pushTokenList.Results)
@@ -163,10 +171,31 @@ func doCus(r *http.Request, ch chan string) {
 		for _, v := range pushTokenList.Results {
     		go func(pushToken PushToken) {
 				pRess := [CUSTOMIZED_TOTAL]*EntryList{}
-				pRess[0] = getEntryList(r, pushToken.CustomizedTopic1, pushToken.Language) 
-				pRess[1] = getEntryList(r, pushToken.CustomizedTopic2, pushToken.Language) 
-				pRess[2] = getEntryList(r, pushToken.CustomizedTopic3, pushToken.Language) 
-				
+				if pushToken.CustomizedTopic1 != "" {
+					pRess[0] = getEntryList(r, pushToken.CustomizedTopic1, pushToken.Language) 
+				} else {
+					pRess[0] = nil
+				}
+				if pushToken.CustomizedTopic2 != "" {
+					pRess[1] = getEntryList(r, pushToken.CustomizedTopic2, pushToken.Language) 
+				} else {
+					pRess[1] = nil
+				}
+				if pushToken.CustomizedTopic3 != "" {
+					pRess[2] = getEntryList(r, pushToken.CustomizedTopic3, pushToken.Language) 
+				} else {
+					pRess[2] = nil
+				}
+				if pushToken.CustomizedTopic4 != "" {
+					pRess[3] = getEntryList(r, pushToken.CustomizedTopic4, pushToken.Language) 
+				} else {
+					pRess[3] = nil
+				}
+				if pushToken.CustomizedTopic5 != "" {
+					pRess[4] = getEntryList(r, pushToken.CustomizedTopic5, pushToken.Language) 
+				} else {
+					pRess[4] = nil
+				}
 				topicApi := pushToken.PushToken
 				var pushedContent string = "" 
 				for _, pRes := range pRess {
