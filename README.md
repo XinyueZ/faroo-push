@@ -1,9 +1,13 @@
 # Faroo-push
-#####A push-service for Faroo.com. Based on [GCM's topic-messaging](https://developers.google.com/cloud-messaging/topic-messaging).
-#####Each push-entry is the first item in feeds.
-#####Each topic has [3 language](http://www.faroo.com/hp/api/api.html#description) that Faroo.com supports.
-#####Support push topics automaitically, see cron.yaml
-#####Support push customized topics from clients automaitically.
+- A push-service for Faroo.com. Based on [GCM's topic-messaging](https://developers.google.com/cloud-messaging/topic-messaging).
+- Each push-entry is the first item in feeds.
+- Each topic has [3 language](http://www.faroo.com/hp/api/api.html#description) that Faroo.com supports.
+- Support push topics automaitically, see cron.yaml
+- Support push customized topics from clients automaitically.
+- Example Android App
+
+[![https://play.google.com/store/apps/details?id=com.cusnews](https://dl.dropbox.com/s/phrg0387osr3riz/images.jpeg)](https://play.google.com/store/apps/details?id=com.cusnews)
+
 
 # About fork
 - Check out project.
