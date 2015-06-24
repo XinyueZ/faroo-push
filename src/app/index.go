@@ -42,7 +42,22 @@ type EntryList struct {
 }
 
 
+type PushToken struct {
+	CreatedAt string `json:"createdAt"`
+	CustomizedTopic1 string  `json:"mCustomizedTopic1"`
+	CustomizedTopic2 string `json:"mCustomizedTopic2"`
+	CustomizedTopic3 string `json:"mCustomizedTopic3"`
+	Language string  `json:"mLanguage"`
+	DeviceId string `json:"mDeviceId"`
+	GoogleId string `json:"mGoogleId"`
+	PushToken string `json:"mPushToken"`
+	ObjectId string `json:"objectId"`
+	UpdatedAt string `json:"updatedAt"`
+}
 
+type PushTokenList struct {
+	Results []PushToken  `json:"results"`
+}
 
 type Error string
 
@@ -54,6 +69,7 @@ func init() {
 		http.HandleFunc("/pushEn", pushHandleEnglish) 
 		http.HandleFunc("/pushDe", pushHandleGerman) 
 		http.HandleFunc("/pushZh", pushHandleChinese) 
+		http.HandleFunc("/pushCus", pushHandleCus) 
 }
 
 func pushHandleEnglish(w http.ResponseWriter, r *http.Request ) {
@@ -66,6 +82,20 @@ func pushHandleGerman(w http.ResponseWriter, r *http.Request ) {
 
 func pushHandleChinese(w http.ResponseWriter, r *http.Request ) {
 	pushHandle(w, r, TOPIC_LIST_ZH)
+}
+
+func pushHandleCus(w http.ResponseWriter, r *http.Request ) {
+	defer func() {
+		if err := recover(); err != nil {
+			s := fmt.Sprintf(`{"status":%d }`, 300)
+			w.Header().Set("Content-Type", API_RESTYPE)
+			fmt.Fprintf(w, s)
+		}
+	}()
+	
+	ch := make(chan string)
+	go doCus(r, ch)
+	<-ch 
 }
 
 //A push handler on all languages which will be used by calling http://your-app.appspot.com/push
@@ -96,27 +126,63 @@ func pushHandle(w http.ResponseWriter, r *http.Request, topicList map[string]Top
 }
 
 func doPush(r *http.Request, api string, topic Topic, ch chan string) {
-							var pushedContent string = ""   
-							pRes := getEntryList(r, topic.LocalName, topic.Language) 
-							topicApi := (TOPICS + api)
-							if pRes != nil && pRes.Results != nil &&  len(pRes.Results) > 0 {
-								entry := pRes.Results[0]
-								
-								entry.Title = strings.Replace(entry.Title, "\"", "'", -1)
-								entry.Title = strings.Replace(entry.Title, "%", "％", -1)
-								entry.Kwic = strings.Replace(entry.Kwic, "\"", "'", -1)
-								entry.Kwic = strings.Replace(entry.Kwic, "%", "％", -1)
-								
-								resBytes, _ := json.Marshal(entry)
-								data := string(resBytes) 
-								pushed := push(r, topicApi, data, true)
-								pushedContent += pushed 
-							} else {
-								pushedContent += (fmt.Sprintf(`"failed in %s"`, topicApi))
-							}  
-							pushedContent += ","  
-							ch <- pushedContent
+	var pushedContent string = ""   
+	pRes := getEntryList(r, topic.LocalName, topic.Language) 
+	topicApi := (TOPICS + api)
+	if pRes != nil && pRes.Results != nil &&  len(pRes.Results) > 0 {
+		entry := pRes.Results[0]
+		
+		entry.Title = strings.Replace(entry.Title, "\"", "'", -1)
+		entry.Title = strings.Replace(entry.Title, "%", "％", -1)
+		entry.Kwic = strings.Replace(entry.Kwic, "\"", "'", -1)
+		entry.Kwic = strings.Replace(entry.Kwic, "%", "％", -1)
+		
+		resBytes, _ := json.Marshal(entry)
+		data := string(resBytes) 
+		pushed := push(r, topicApi, data, true)
+		pushedContent += pushed 
+	} else {
+		pushedContent += (fmt.Sprintf(`"failed in %s"`, topicApi))
+	}  
+	pushedContent += ","  
+	ch <- pushedContent
 }
+
+func doCus(r *http.Request, ch chan string) {
+	getPushTokens(r)
+	ch<-"end"
+}
+
+//Get all push-tokens of clients inc. the customized topics user subscribed.
+func getPushTokens(r *http.Request)(pRes *PushTokenList) {
+	cxt := appengine.NewContext(r)
+	url := fmt.Sprintf(FAROO_API, query, lang) 
+	if req, err := http.NewRequest("GET", url, nil); err == nil {
+		httpClient := urlfetch.Client(cxt)
+		r, err := httpClient.Do(req)
+		if r != nil {
+			defer r.Body.Close()
+		}
+		if err == nil {
+			if bytes, err := ioutil.ReadAll(r.Body); err == nil { 
+				pRes = new(PushTokenList)
+				json.Unmarshal(bytes, pRes) 
+				cxt.Infof("json: %s", string(bytes))
+			} else {
+				cxt.Errorf("getPushTokens unmarshal: %v", err)
+				pRes = nil
+			}
+		} else {
+			cxt.Errorf("getPushTokens doing: %v", err)
+			pRes = nil
+		}
+	} else {
+		cxt.Errorf("getPushTokens: %v", err)
+		pRes = nil
+	}
+	return
+}
+
 
 //Get a news-entry and channel it.
 func getEntryList(r *http.Request, query string, lang string)(pRes *EntryList) {
@@ -134,8 +200,7 @@ func getEntryList(r *http.Request, query string, lang string)(pRes *EntryList) {
 		if err == nil {
 			if bytes, err := ioutil.ReadAll(r.Body); err == nil { 
 				pRes = new(EntryList)
-				json.Unmarshal(bytes, pRes) 
-				cxt.Infof("json: %s", string(bytes))
+				json.Unmarshal(bytes, pRes)  
 			} else {
 				cxt.Errorf("getEntryList unmarshal: %v", err)
 				pRes = nil

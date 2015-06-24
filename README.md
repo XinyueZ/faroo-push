@@ -24,11 +24,15 @@ HOW TO:
 The scheme of push-token(DB_PUSH_TOKEN_TAB):
  ```java
 	{
-		"createdAt": "2015-06-23 21:47:04",
-		"mGoogleId": "345245634563563456",
-		"mPushToken": "fVMIP7nunfOEL2b6QSa_hgJpxBqR_KP_0rp-r6xN5Zp3jos1gqqv",
-		"objectId": "9de568aaff",
-		"updatedAt": "2015-06-23 21:47:04"
+		"createdAt": "2015-06-24 17:10:59",
+		"mCustomizedTopic1": "USA",
+		"mCustomizedTopic2": "Shanghai",
+		"mCustomizedTopic3": "deutsche",
+		"mDeviceId": "f069ce9f6asdfasdf65900b3facce96656b6ad9b",
+		"mGoogleId": "1079asdfasdfasdfasdf38088430373916013",
+		"mPushToken": "bGjgqC4ucT_bBG7-QkGkgT5m_Nc9y2WFaOf1XVgojCzqIaZtFQ-_SI1knT1GwVe91WX8kp8nD1e_AK2khfJ0euQVOeV54Mge",
+		"objectId": "fad1573d78",
+		"updatedAt": "2015-06-24 17:11:21"
 	}
  ```
  
@@ -44,21 +48,12 @@ The scheme of push-token(DB_PUSH_TOKEN_TAB):
 | /topics/football-en  | [Soccer](http://www.faroo.com/api?q=soccer&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/football-de  | [Fußball](http://www.faroo.com/api?q=fußball&start=1&length=10&l=de&src=news&f=json).  | German  |
 | /topics/football-zh  | [足球](http://www.faroo.com/api?q=足球&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
-| /topics/basketball-en  | [basketball](http://www.faroo.com/api?q=basketball&start=1&length=10&l=en&src=news&f=json).  | English |
-| /topics/basketball-de  | [Basketball](http://www.faroo.com/api?q=Basketball&start=1&length=10&l=de&src=news&f=json).  | German  |
-| /topics/basketball-zh  | [篮球](http://www.faroo.com/api?q=篮球&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/IT-en  | [IT](http://www.faroo.com/api?q=Internet&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/IT-de  | [IT](http://www.faroo.com/api?q=Internet&start=1&length=10&l=de&src=news&f=json).  | German  |
 | /topics/IT-zh  | [IT](http://www.faroo.com/api?q=网络&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
-| /topics/Android-en  | [Android](http://www.faroo.com/api?q=Android&start=1&length=10&l=en&src=news&f=json).  | English |
-| /topics/Android-de  | [Android](http://www.faroo.com/api?q=Android&start=1&length=10&l=de&src=news&f=json).  | German  |
-| /topics/Android-zh  | [安卓](http://www.faroo.com/api?q=安卓&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/Google-en  | [Google](http://www.faroo.com/api?q=Google&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/Google-de  | [Google](http://www.faroo.com/api?q=Google&start=1&length=10&l=de&src=news&f=json).  | German  |
 | /topics/Google-zh  | [谷歌](http://www.faroo.com/api?q=谷歌&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
-| /topics/iPhone-en  | [iPhone](http://www.faroo.com/api?q=iPhone&start=1&length=10&l=en&src=news&f=json).  | English |
-| /topics/iPhone-de  | [iPhone](http://www.faroo.com/api?q=iPhone&start=1&length=10&l=de&src=news&f=json).  | German  |
-| /topics/iPhone-zh  | [iPhone](http://www.faroo.com/api?q=iPhone&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
 | /topics/Apple-en  | [Apple](http://www.faroo.com/api?q=Apple&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/Apple-de  | [Apple](http://www.faroo.com/api?q=Apple&start=1&length=10&l=de&src=news&f=json).  | German  |
 | /topics/Apple-zh  | [苹果公司](http://www.faroo.com/api?q=苹果公司&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
