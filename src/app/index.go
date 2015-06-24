@@ -12,7 +12,7 @@ import (
 	"strings"
 )
  
- 
+
 type Related struct {
 	Title	string `json:"title"`
 	Url	string `json:"url"`
@@ -95,7 +95,13 @@ func pushHandleCus(w http.ResponseWriter, r *http.Request ) {
 	
 	ch := make(chan string)
 	go doCus(r, ch)
-	<-ch 
+	pushedResult := <-ch 
+	if pushedResult != "" {
+		pushedResult = pushedResult[:len(pushedResult)-1]
+	}
+	output := fmt.Sprintf(`{"status":%d, "pushed:":[%s] }`, 200, pushedResult)
+	w.Header().Set("Content-Type", API_RESTYPE)
+	fmt.Fprintf(w, output)
 }
 
 //A push handler on all languages which will be used by calling http://your-app.appspot.com/push
@@ -149,8 +155,37 @@ func doPush(r *http.Request, api string, topic Topic, ch chan string) {
 }
 
 func doCus(r *http.Request, ch chan string) {
-	getPushTokens(r)
-	ch<-"end"
+	pushTokenList := getPushTokens(r)
+	var pushedContent string = "" 
+	if pushTokenList.Results != nil && len(pushTokenList.Results) > 0 { 
+		for _, v := range pushTokenList.Results {
+			pRess := [CUSTOMIZED_TOTAL]*EntryList{}
+			pRess[0] = getEntryList(r, v.CustomizedTopic1, v.Language) 
+			pRess[1] = getEntryList(r, v.CustomizedTopic2, v.Language) 
+			pRess[2] = getEntryList(r, v.CustomizedTopic3, v.Language) 
+			
+			topicApi := v.PushToken
+			for _, pRes := range pRess {
+				if pRes != nil && pRes.Results != nil &&  len(pRes.Results) > 0 {
+					entry := pRes.Results[0]
+					
+					entry.Title = strings.Replace(entry.Title, "\"", "'", -1)
+					entry.Title = strings.Replace(entry.Title, "%", "％", -1)
+					entry.Kwic = strings.Replace(entry.Kwic, "\"", "'", -1)
+					entry.Kwic = strings.Replace(entry.Kwic, "%", "％", -1)
+					
+					resBytes, _ := json.Marshal(entry)
+					data := string(resBytes) 
+					pushed := push(r, topicApi, data, true)
+					pushedContent += pushed 
+				} else {
+					pushedContent += (fmt.Sprintf(`"failed in %s"`, topicApi))
+				}
+				pushedContent += ","  
+			}
+		}
+	}
+	ch <- pushedContent
 }
 
 //Get all push-tokens of clients inc. the customized topics user subscribed.
