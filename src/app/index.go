@@ -156,8 +156,10 @@ func doCus(r *http.Request, ch chan string) {
 //Get all push-tokens of clients inc. the customized topics user subscribed.
 func getPushTokens(r *http.Request)(pRes *PushTokenList) {
 	cxt := appengine.NewContext(r)
-	url := fmt.Sprintf(FAROO_API, query, lang) 
+	url := DB_PATH + DB_PUSH_TOKEN_TAB
 	if req, err := http.NewRequest("GET", url, nil); err == nil {
+		req.Header.Add(DB_HEADER_APP_ID, DB_APP_ID)
+		req.Header.Add(DB_HEADER_API_KEY, DB_API_KEY)
 		httpClient := urlfetch.Client(cxt)
 		r, err := httpClient.Do(req)
 		if r != nil {
