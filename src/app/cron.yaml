@@ -10,4 +10,4 @@ cron:
   schedule: every 130 minutes from 0:00 to 23:59
 - description: Push customized entries.
   url: /pushCus
-  schedule: every 60 minutes from 0:00 to 23:59
+  schedule: every 100 minutes from 0:00 to 23:59
