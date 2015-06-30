@@ -103,7 +103,7 @@ The scheme of push-token(DB_PUSH_TOKEN_TAB):
 # Supported topics:
 ######The list will be grown in the furture and the client-apps must keep pace with updated list to subscribe new pushs.
 ######Topic is case-sensitive.
-
+######Api:  ```/apiListZh```,  ```/apiListDe```,  ```/apiListEn``` can list all avaiable topics.
 | Topic  | Content | language |
 | ------------- | ------------- | ------------- |
 | /topics/global-en  | [Trending News](http://www.faroo.com/api?q=&start=1&length=10&l=en&src=news&f=json).  | English |
@@ -121,7 +121,7 @@ The scheme of push-token(DB_PUSH_TOKEN_TAB):
 | /topics/Apple-en  | [Apple](http://www.faroo.com/api?q=Apple&start=1&length=10&l=en&src=news&f=json).  | English |
 | /topics/Apple-de  | [Apple](http://www.faroo.com/api?q=Apple&start=1&length=10&l=de&src=news&f=json).  | German  |
 | /topics/Apple-zh  | [苹果公司](http://www.faroo.com/api?q=苹果公司&start=1&length=10&l=zh&src=news&f=json).  |  Chinese |
- 
+........
  
 #License
 

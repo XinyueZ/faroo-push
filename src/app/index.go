@@ -72,6 +72,9 @@ func init() {
 		http.HandleFunc("/pushDe", pushHandleGerman) 
 		http.HandleFunc("/pushZh", pushHandleChinese) 
 		http.HandleFunc("/pushCus", pushHandleCus) 
+		http.HandleFunc("/apiListEn", pushHandleApiListEnglish) 
+		http.HandleFunc("/apiListDe", pushHandleApiListGerman) 
+		http.HandleFunc("/apiListZh", pushHandleApiListChinese) 
 }
 
 func pushHandleEnglish(w http.ResponseWriter, r *http.Request ) {
@@ -86,6 +89,36 @@ func pushHandleChinese(w http.ResponseWriter, r *http.Request ) {
 	pushHandle(w, r, TOPIC_LIST_ZH)
 }
 
+
+func pushHandleApiListEnglish(w http.ResponseWriter, r *http.Request ) {
+	apiListHandle(w, r, TOPIC_LIST_EN)
+}
+
+func pushHandleApiListGerman(w http.ResponseWriter, r *http.Request ) {
+	apiListHandle(w, r, TOPIC_LIST_DE)
+}
+
+func pushHandleApiListChinese(w http.ResponseWriter, r *http.Request ) {
+	apiListHandle(w, r, TOPIC_LIST_ZH)
+}
+
+//The gernal api to getting json result of topics.
+func apiListHandle(w http.ResponseWriter, r *http.Request , topicList map[string]Topic) {
+	 defer func() {
+		if err := recover(); err != nil {
+			s := fmt.Sprintf(`{"status":%d }`, 300)
+			w.Header().Set("Content-Type", API_RESTYPE)
+			fmt.Fprintf(w, s)
+		}
+	}()
+	
+	bytes, _ := json.Marshal(topicList) 
+	output := fmt.Sprintf(`{"status":%d, "api:":[%s] }`, 200, bytes)
+	w.Header().Set("Content-Type", API_RESTYPE)
+	fmt.Fprintf(w, output)	
+}
+
+//Push customized topics.
 func pushHandleCus(w http.ResponseWriter, r *http.Request ) {
 	defer func() {
 		if err := recover(); err != nil {
@@ -106,7 +139,7 @@ func pushHandleCus(w http.ResponseWriter, r *http.Request ) {
 	fmt.Fprintf(w, output)
 }
 
-//A push handler on all languages which will be used by calling http://your-app.appspot.com/push
+//A gernal push handler on all languages which will be used by calling http://your-app.appspot.com/push
 func pushHandle(w http.ResponseWriter, r *http.Request, topicList map[string]Topic ) {
 	defer func() {
 		if err := recover(); err != nil {
